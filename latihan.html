@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Latihan Soal – Past Continuous & Simple Past (When & While)</title>
+<style>
+:root{
+  --bg:#f5f7fb; --card:#ffffff; --text:#1f2937; --muted:#5b6475;
+  --primary:#2563eb; --primary-soft:#e3ecff; --border:#dde3ee;
+  --ok-bg:#e7f7ec; --ok:#157a3b; --bad-bg:#fdeaea; --bad:#b42318; --note-bg:#fff6df; --accent:#f59e0b;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#0f1420; --card:#171e2e; --text:#e6eaf2; --muted:#9aa5ba;
+    --primary:#6ea0ff; --primary-soft:#1d2a49; --border:#2a3550;
+    --ok-bg:#12301f; --ok:#6fdc97; --bad-bg:#3a1a1a; --bad:#ff9b92; --note-bg:#3a3014; --accent:#fbbf24;
+  }
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;line-height:1.6;font-size:17px}
+.wrap{max-width:820px;margin:0 auto;padding:16px}
+.hero{background:linear-gradient(135deg,#1d4ed8,#7c3aed);color:#fff;border-radius:18px;padding:24px 20px;margin-bottom:16px}
+.hero h1{margin:0 0 6px;font-size:1.6rem;line-height:1.25}
+.hero p{margin:0;opacity:.95}
+.info{background:var(--note-bg);border-left:4px solid var(--accent);border-radius:8px;padding:10px 14px;margin-bottom:16px}
+h2.part{font-size:1.15rem;color:var(--primary);margin:22px 0 10px}
+.q{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px 16px;margin-bottom:12px}
+.q.correct{border-color:var(--ok);background:var(--ok-bg)}
+.q.wrong{border-color:var(--bad);background:var(--bad-bg)}
+.q .t{font-weight:600;margin:0 0 8px}
+.opt{display:flex;gap:10px;align-items:flex-start;padding:8px 10px;border:1px solid var(--border);border-radius:10px;margin:6px 0;cursor:pointer;background:var(--card)}
+.opt:hover{background:var(--primary-soft)}
+.opt input{margin-top:5px}
+input[type=text]{width:100%;padding:10px 12px;font-size:1rem;border:1px solid var(--border);border-radius:10px;background:var(--card);color:var(--text)}
+.fb{margin-top:8px;font-size:.95rem}
+.fb b{color:var(--ok)}
+.q.wrong .fb .you{color:var(--bad)}
+button{font:inherit;font-weight:700;border:0;border-radius:12px;padding:12px 22px;cursor:pointer;background:var(--primary);color:#fff}
+button.sec{background:var(--muted)}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0}
+.warn{color:var(--bad);font-weight:600;margin:6px 0;min-height:1.4em}
+.result{background:var(--card);border:2px solid var(--primary);border-radius:16px;padding:20px;margin:16px 0;text-align:center}
+.score{font-size:3rem;font-weight:800;color:var(--primary);line-height:1.1}
+.wrongbox{text-align:left;margin-top:14px}
+.wrongbox li{margin:6px 0}
+a.back{display:inline-block;color:var(--primary);font-weight:700;text-decoration:none;margin-bottom:10px}
+</style>
+</head>
+<body>
+<div class="wrap" id="top">
+  <a class="back" href="index.html">← Kembali ke Materi</a>
+  <header class="hero">
+    <h1>Latihan Soal: Past Continuous &amp; Simple Past</h1>
+    <p>Using WHEN and WHILE | Grade IX – Chapter 2: Taking Trips</p>
+  </header>
+  <div class="info">
+    <strong>Petunjuk:</strong> Kerjakan 15 soal (10 pilihan ganda, 5 isian). Untuk soal isian, tulis jawaban lengkap tanpa tanda baca di akhir (contoh: <em>was eating</em>). Tekan <strong>Selesai</strong> untuk melihat nilai dan jawaban yang salah.
+  </div>
+
+  <div id="result"></div>
+  <form id="quiz" onsubmit="return false"></form>
+
+  <div class="warn" id="warn"></div>
+  <div class="actions">
+    <button id="finish">Selesai</button>
+    <button class="sec" id="reset">Ulangi</button>
+  </div>
+</div>
+
+<script>
+var MC = [
+  {q:"Simple past tense digunakan untuk menceritakan …", o:["kegiatan yang sedang berlangsung di masa lampau","kejadian yang sudah terjadi dan selesai di masa lampau","kegiatan yang sedang terjadi sekarang","rencana di masa depan"], a:1, e:"Simple past dipakai untuk kejadian yang sudah terjadi dan selesai di masa lampau."},
+  {q:"Pola kalimat past continuous yang benar adalah …", o:["Subject + Verb 2","Subject + am/is/are + Verb-ing","Subject + was/were + Verb-ing","Subject + will + Verb 1"], a:2, e:"Past continuous = Subject + was/were + Verb-ing."},
+  {q:"She ___ sleeping when I arrived at her house.", o:["were","was","is","did"], a:1, e:"Subject “she” memakai was: She was sleeping."},
+  {q:"They ___ playing football in the field.", o:["was","are","were","did"], a:2, e:"Subject “they” memakai were: They were playing."},
+  {q:"I was swimming ___ I saw a turtle.", o:["when","because","but","so"], a:0, e:"Pola: Past Continuous + when + Simple Past → I was swimming when I saw a turtle."},
+  {q:"___ we were walking, it started to rain.", o:["When","While","Because","Then"], a:1, e:"Pola: While + Past Continuous, + Simple Past → While we were walking, it started to rain."},
+  {q:"I ___ a picture when my friend called me.", o:["took","was take","was taking","were taking"], a:2, e:"Kegiatan yang sedang berlangsung memakai was + Verb-ing: I was taking a picture."},
+  {q:"While I was studying, my mother ___ home.", o:["come","came","was coming to","comed"], a:1, e:"Kejadian yang terjadi memakai simple past (Verb 2). Verb 2 dari come adalah came."},
+  {q:"Which sentence is correct?", o:["He goed home when it rained.","He went home when it rained.","He go home when it rained.","He was went home when it rained."], a:1, e:"Bentuk lampau dari go adalah went, bukan “goed”."},
+  {q:"In the sentence “They were travelling when the bus stopped,” which part is the simple past?", o:["They were travelling","were","when","stopped"], a:3, e:"“stopped” adalah kejadian yang terjadi (simple past), sedangkan “were travelling” adalah past continuous."}
+];
+var FILL = [
+  {q:"They ___ (play) football when it rained.", a:["were playing"], e:"They → were + Verb-ing: were playing."},
+  {q:"Last Sunday, we ___ (go) to the beach.", a:["went"], e:"Simple past dari go adalah went."},
+  {q:"I ___ (watch) TV when you called.", a:["was watching"], e:"I → was + Verb-ing: was watching."},
+  {q:"He ___ (see) a turtle while he was swimming.", a:["saw"], e:"Kejadian yang terjadi memakai simple past; Verb 2 dari see adalah saw."},
+  {q:"While I ___ (study), my mother came home.", a:["was studying"], e:"Kegiatan yang sedang berlangsung: was + Verb-ing → was studying."}
+];
+var L = ["A","B","C","D"], form = document.getElementById("quiz"), confirmed = false;
+
+function esc(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/"/g,"&quot;");}
+function build(){
+  var h = '<h2 class="part">Bagian I – Pilihan Ganda (soal 1–10)</h2>';
+  MC.forEach(function(m,i){
+    h += '<div class="q" id="q'+i+'"><p class="t">'+(i+1)+'. '+esc(m.q)+'</p>';
+    m.o.forEach(function(o,j){
+      h += '<label class="opt"><input type="radio" name="m'+i+'" value="'+j+'"><span><b>'+L[j]+'.</b> '+esc(o)+'</span></label>';
+    });
+    h += '<div class="fb"></div></div>';
+  });
+  h += '<h2 class="part">Bagian II – Isian (soal 11–15)</h2>';
+  FILL.forEach(function(f,i){
+    var n = MC.length+i;
+    h += '<div class="q" id="q'+n+'"><p class="t">'+(n+1)+'. '+esc(f.q)+'</p>'+
+         '<input type="text" name="f'+i+'" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Tulis jawabanmu…"><div class="fb"></div></div>';
+  });
+  form.innerHTML = h;
+}
+function norm(s){return s.toLowerCase().replace(/[’‘]/g,"'").replace(/[.,!?]/g,"").replace(/\s+/g," ").trim();}
+
+function finish(){
+  var total = MC.length+FILL.length, correct = 0, wrongs = [], blank = 0, res = [];
+  MC.forEach(function(m,i){
+    var s = form.querySelector('input[name="m'+i+'"]:checked');
+    if(!s) blank++;
+    var ok = s && +s.value === m.a;
+    res.push({ok:ok, you: s ? L[+s.value]+". "+m.o[+s.value] : "(belum dijawab)", right: L[m.a]+". "+m.o[m.a], e:m.e});
+  });
+  FILL.forEach(function(f,i){
+    var v = form.querySelector('input[name="f'+i+'"]').value;
+    if(!norm(v)) blank++;
+    var ok = f.a.some(function(x){return norm(x)===norm(v);});
+    res.push({ok:ok, you: norm(v) ? v.trim() : "(belum dijawab)", right: f.a[0], e:f.e});
+  });
+  if(blank>0 && !confirmed){
+    confirmed = true;
+    document.getElementById("warn").textContent = "Masih ada "+blank+" soal belum dijawab. Tekan Selesai lagi jika ingin tetap mengumpulkan.";
+    return;
+  }
+  document.getElementById("warn").textContent = "";
+  res.forEach(function(r,i){
+    var box = document.getElementById("q"+i), fb = box.querySelector(".fb");
+    box.classList.remove("correct","wrong");
+    if(r.ok){
+      correct++; box.classList.add("correct"); fb.innerHTML = "✅ Benar!";
+    } else {
+      box.classList.add("wrong"); wrongs.push(i+1);
+      fb.innerHTML = '❌ <span class="you">Jawabanmu: '+esc(r.you)+'</span><br><b>Jawaban benar: '+esc(r.right)+'</b><br>💡 '+esc(r.e);
+    }
+  });
+  var score = Math.round(correct/total*100);
+  var msg = score>=85 ? "Excellent! Pemahamanmu sangat baik. 🎉" : score>=70 ? "Good job! Sedikit lagi sempurna. 👍" : score>=50 ? "Cukup baik. Baca ulang materi lalu coba lagi. 📖" : "Jangan menyerah! Pelajari materi lagi lalu ulangi latihan. 💪";
+  var html = '<div class="result"><div>Nilaimu</div><div class="score">'+score+'</div>'+
+    '<p><strong>'+correct+' benar</strong> dari '+total+' soal &nbsp;|&nbsp; '+(total-correct)+' salah</p><p>'+msg+'</p>';
+  if(wrongs.length){
+    html += '<div class="wrongbox"><strong>Nomor soal yang salah:</strong> '+wrongs.join(", ")+
+            '<br><small>Lihat penjelasan di setiap soal berwarna merah di bawah.</small></div>';
+  } else {
+    html += '<p><strong>Semua jawabanmu benar!</strong></p>';
+  }
+  html += '<p><a class="back" href="index.html">← Baca ulang materi</a></p></div>';
+  var r = document.getElementById("result");
+  r.innerHTML = html;
+  r.scrollIntoView({behavior:"smooth", block:"start"});
+  confirmed = false;
+}
+function reset(){
+  build();
+  document.getElementById("result").innerHTML = "";
+  document.getElementById("warn").textContent = "";
+  confirmed = false;
+  window.scrollTo({top:0, behavior:"smooth"});
+}
+document.getElementById("finish").addEventListener("click", finish);
+document.getElementById("reset").addEventListener("click", reset);
+build();
+</script>
+</body>
+</html>
